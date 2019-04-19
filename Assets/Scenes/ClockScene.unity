@@ -619,7 +619,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: MODE
+  m_Text: CLOCK_ON
 --- !u!222 &1265735259
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -725,7 +725,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1426927046
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1060,10 +1060,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d69bd0ee4c3ef3549a209018d401057f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera: {fileID: 519420031}
   hour: {fileID: 1026752503}
   minute: {fileID: 1753116481}
   incrementBtn: {fileID: 1426927047}
   modeBtn: {fileID: 278598446}
+  setAlarmBtn: {fileID: 1576130727}
+  snoozeBtn: {fileID: 1828568928}
 --- !u!1 &1741480157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,7 +1230,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1828568927
 RectTransform:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class DigitalClock : MonoBehaviour
 {
+    public Camera camera;
     public Text hour;
     public Text minute;
     public Button incrementBtn;
@@ -27,6 +28,7 @@ public class DigitalClock : MonoBehaviour
         this.clock.Display.DisplayTime = newTime;
         SetDisplayTime(clock.TimeMgr.CurrentTime);
 
+        this.clock.Alarm.alarmEvent += Alarm_alarmEvent;
         clock.Start();
     }
 
@@ -67,7 +69,7 @@ public class DigitalClock : MonoBehaviour
 
     private void OnSetAlarmClick()
     {
-        if (this.clock.Alarm.alarmEnabled)
+        if (this.clock.Alarm.alarming)
         {
             this.clock.Alarm.Off();
             SetBtnText(this.setAlarmBtn, "ALARM_OFF");
@@ -82,6 +84,14 @@ public class DigitalClock : MonoBehaviour
     private void OnSnoozeBtnClick()
     {
         this.clock.TimeMgr.Snooze();
+        this.snoozeBtn.GetComponentInChildren<Image>().gameObject.SetActive(false);
+        camera.backgroundColor = Color.blue;
+    }
+
+    private void Alarm_alarmEvent(object sender, EventArgs e)
+    {
+        this.snoozeBtn.GetComponentInChildren<Image>().gameObject.SetActive(true);
+        camera.backgroundColor = Color.red;
     }
     #endregion
 
