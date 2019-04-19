@@ -17,23 +17,25 @@ public class DigitalClock : MonoBehaviour
     {
         this.incrementBtn.onClick.AddListener(OnIncrementClick);
         this.modeBtn.onClick.AddListener(OnModeClick);
-        this.modeBtn.onClick.AddListener(OnSetAlarmClick);
-        this.modeBtn.onClick.AddListener(OnSnoozeBtnClick);
+        this.setAlarmBtn.onClick.AddListener(OnSetAlarmClick);
+        this.snoozeBtn.onClick.AddListener(OnSnoozeBtnClick);
 
         this.clock = new Clock();
         DateTime now = DateTime.Now;
         Tiempo newTime = new Tiempo(now.Hour, now.Minute);
         clock.TimeMgr.CurrentTime = newTime;
+        this.clock.Display.DisplayTime = newTime;
+        SetDisplayTime(clock.TimeMgr.CurrentTime);
 
         clock.Start();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         SetDisplayTime(this.clock.Display.DisplayTime);
     }
 
+    #region Event Handlers
     private void OnIncrementClick()
     {
         if (this.clock.ModeMgr.CurrentMode == Mode.SET_TIME)
@@ -52,10 +54,12 @@ public class DigitalClock : MonoBehaviour
         if(mode + 1 < 3)
         {
             this.clock.ModeMgr.CurrentMode++;
+            this.incrementBtn.GetComponentInChildren<Image>().gameObject.SetActive(true);
         }
         else
         {
             this.clock.ModeMgr.CurrentMode = Mode.CLOCK_ON;
+            this.incrementBtn.GetComponentInChildren<Image>().gameObject.SetActive(false);
         }
 
         SetBtnText(this.modeBtn, this.clock.ModeMgr.CurrentMode.ToString());
@@ -79,13 +83,15 @@ public class DigitalClock : MonoBehaviour
     {
         this.clock.TimeMgr.Snooze();
     }
+    #endregion
 
+    //Set Btn Text
     private void SetBtnText(Button btn, string btnText)
     {
         btn.GetComponentInChildren<Text>().text = btnText;
     }
 
-
+    // Set Text Component Values
     private void SetDisplayTime(Tiempo time)
     {
         if (time == null) { time = new Tiempo(12, 0); }
